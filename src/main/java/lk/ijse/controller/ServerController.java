@@ -11,6 +11,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class ServerController {
 
@@ -30,7 +31,7 @@ public class ServerController {
     private DataOutputStream dataOutputStream;
     private String message = "";
 
-    //Scanner input = new Scanner(dataInputStream);
+    Scanner input = new Scanner(System.in);
 
 
     private int user = 0;
@@ -40,9 +41,6 @@ public class ServerController {
     public void initialize() {
         new Thread(() -> {
             try {
-
-//                System.out.println("Enter message : ");
-//                message = input.next();
 
                 serverSocket = new ServerSocket(4000);
                 System.out.println("Server Started...\n");
