@@ -30,13 +30,12 @@ public class ClientController {
                 try {
                     socket = new Socket("localhost", 4000);
 
-
                     dataOutputStream = new DataOutputStream(socket.getOutputStream());
                     dataInputStream = new DataInputStream(socket.getInputStream());
 
                     while (!message.equals("exit")){
                         message = dataInputStream.readUTF();
-                        textArea.appendText("\n Server: "+message);
+                        textArea.appendText("\nServer: "+message);
                     }
                     socket.close();
 
@@ -49,8 +48,11 @@ public class ClientController {
         @FXML
         void btnSendOnAction(ActionEvent event) {
             try {
-                 dataOutputStream.writeUTF(txtMessage.getText());
-                 dataOutputStream.flush();
+                dataOutputStream.writeUTF(txtMessage.getText());
+                dataOutputStream.flush();
+                message = txtMessage.getText();
+                textArea.appendText("\nClient : "+message);
+                txtMessage.clear();
             } catch (IOException e) {
                 throw new RuntimeException();
             }

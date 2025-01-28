@@ -2,9 +2,12 @@ package lk.ijse.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -28,6 +31,8 @@ public class ServerController {
     private DataInputStream dataInputStream;
     private DataOutputStream dataOutputStream;
     private String message = "";
+
+    private int user = 0;
 
     @FXML
     public void initialize() {
@@ -58,6 +63,9 @@ public class ServerController {
         try {
             dataOutputStream.writeUTF(txtMessage.getText().trim());
             dataOutputStream.flush();
+            message = txtMessage.getText();
+            textArea.appendText("\nServer : "+message);
+            txtMessage.clear();
         } catch (IOException e) {
             throw new RuntimeException();
         }
