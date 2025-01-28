@@ -29,6 +29,7 @@ public class ClientController {
             new Thread(() -> {
                 try {
                     socket = new Socket("localhost", 4000);
+                    textArea.appendText("\nClient Started");
 
                     dataOutputStream = new DataOutputStream(socket.getOutputStream());
                     dataInputStream = new DataInputStream(socket.getInputStream());
