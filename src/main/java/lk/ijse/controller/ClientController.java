@@ -1,0 +1,66 @@
+package lk.ijse.controller;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
+public class ClientController {
+        @FXML
+        private TextArea textArea;
+
+        @FXML
+        private TextField txtMessage;
+
+        @FXML
+        private Button btnSend;
+
+        private Socket socket;
+        private DataInputStream dataInputStream;
+        private DataOutputStream dataOutputStream;
+        private String message = "";
+
+        @FXML
+        public void initialize() {
+            new Thread(() -> {
+                try {
+                    socket = new Socket("localhost", 4000);
+
+
+                    dataOutputStream = new DataOutputStream(socket.getOutputStream());
+                    dataInputStream = new DataInputStream(socket.getInputStream());
+
+                    while (!message.equals("exit")){
+                        message = dataInputStream.readUTF();
+                        textArea.appendText("\n Server: "+message);
+                    }
+                    socket.close();
+
+                } catch (IOException e) {
+                    throw new RuntimeException();
+                }
+            }).start();
+        }
+
+        @FXML
+        void btnSendOnAction(ActionEvent event) {
+            try {
+                 dataOutputStream.writeUTF(txtMessage.getText());
+                 dataOutputStream.flush();
+            } catch (IOException e) {
+                throw new RuntimeException();
+            }
+
+        }
+
+        @FXML
+        void txtMessageOnAction(ActionEvent event) {
+            btnSend.requestFocus();
+        }
+
+
+}
