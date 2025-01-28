@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import lk.ijse.clients.Clients;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -15,6 +16,9 @@ public class ServerController {
 
     @FXML
     private TextField txtMessage;
+
+    @FXML
+    private TextField txtUser;
 
     @FXML
     private Button btnSend;
@@ -30,6 +34,7 @@ public class ServerController {
 
 
     private int user = 0;
+    Clients[] clients;
 
     @FXML
     public void initialize() {
@@ -62,6 +67,13 @@ public class ServerController {
     @FXML
     void btnSendOnAction(ActionEvent event) {
         try {
+            /*user = Integer.parseInt(txtUser.getText());
+            clients = new Clients[user];
+
+            for (int i = 0; i < user; i++) {
+                clients[i].clientAdd();
+            }*/
+
             dataOutputStream.writeUTF(txtMessage.getText().trim());
             dataOutputStream.flush();
             message = txtMessage.getText();

@@ -22,8 +22,8 @@ public class AddUserController {
     @FXML
     void btnAddUserOnAction(ActionEvent event) {
         //Stage stage = new Stage();
-        Clients clients = new Clients();
-        clients.clientAdd(Integer.parseInt(textUserName.getText()));
+        //Clients clients = new Clients();
+        //clients.clientAdd(Integer.parseInt(textUserName.getText()));
         Stage stage = new Stage();
 
         try {

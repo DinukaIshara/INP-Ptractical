@@ -8,22 +8,21 @@ import java.io.IOException;
 
 public class Clients {
 
-    public void clientAdd(int num){
+    public void clientAdd(){
 
-        Stage[] stages = new Stage[num];
+        Stage stages = new Stage();
 
-        for (int i = 0; i < num; i++) {
             try {
-                stages[i].setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/view/client_form.fxml"))));
+                stages.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/view/client_form.fxml"))));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            stages[i].setTitle("Client Form");
-            stages[i].centerOnScreen();
+            stages.setTitle("Client Form");
+            stages.centerOnScreen();
 
-            stages[i].show();
+            stages.show();
 
-        }
+
 
     }
 }
