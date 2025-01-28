@@ -2,12 +2,8 @@ package lk.ijse.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -16,8 +12,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ServerController {
-    @FXML
-    private TextArea textArea;
 
     @FXML
     private TextField txtMessage;
@@ -32,24 +26,31 @@ public class ServerController {
     private DataOutputStream dataOutputStream;
     private String message = "";
 
+    //Scanner input = new Scanner(dataInputStream);
+
+
     private int user = 0;
 
     @FXML
     public void initialize() {
         new Thread(() -> {
             try {
+
+//                System.out.println("Enter message : ");
+//                message = input.next();
+
                 serverSocket = new ServerSocket(4000);
-                textArea.appendText("Server Started...\n");
+                System.out.println("Server Started...\n");
 
                 socket = serverSocket.accept();
-                textArea.appendText("\nClient Accepted!\n");
+                System.out.println("\nClient Accepted!\n");
 
                 dataInputStream = new DataInputStream(socket.getInputStream());
                 dataOutputStream = new DataOutputStream(socket.getOutputStream());
 
                 while (!message.equals("exit")){
                     message = dataInputStream.readUTF();
-                    textArea.appendText("\n Client: "+message);
+                    System.out.println("\nClient: "+message);
                 }
 
             } catch (IOException e) {
@@ -64,7 +65,7 @@ public class ServerController {
             dataOutputStream.writeUTF(txtMessage.getText().trim());
             dataOutputStream.flush();
             message = txtMessage.getText();
-            textArea.appendText("\nServer : "+message);
+            System.out.println("\nServer : "+message);
             txtMessage.clear();
         } catch (IOException e) {
             throw new RuntimeException();
