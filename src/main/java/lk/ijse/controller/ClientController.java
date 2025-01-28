@@ -62,7 +62,7 @@ public class ClientController {
 
         @FXML
         void txtMessageOnAction(ActionEvent event) {
-            btnSend.requestFocus();
+            btnSendOnAction(event);
         }
 
 
